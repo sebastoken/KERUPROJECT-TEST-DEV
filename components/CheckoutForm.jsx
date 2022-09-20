@@ -63,61 +63,6 @@ export default function CheckoutForm({price}) {
   const [email, setEmail] = React.useState('');
 
 
-
-
-  const sendConfirmationEmail = async (e) => {
-
-    try {
-      const res = await fetch('https://keruproject.org/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(e),
-      })
-
-      const { error } = await res.json()
-
-      if (error) {
-
-   const response = await 
-   fetch("https://keruproject.org/api/post_error", {
-     method: "POST",
-     body: JSON.stringify({email:e.email,souvenir_name:e.souvenir_name,edition:e.edition,error:error}),
-     headers: 
-     {
-       "Content-Type": 
-       "application/json",
-     },
-      });
-        return
-      }
-  
-    } catch (error) {
-    //console.log(error)
-    }
-  
-}
-
-async function submitdata(enteredData) {
-
-  const response = await 
-  fetch("https://keruproject.org/api/post_paid", {
-    method: "POST",
-    body: JSON.stringify(enteredData),
-    headers: 
-    {
-      "Content-Type": 
-      "application/json",
-    },
-  });
-  const data = await response.json();
-  //console.log(data);
- }
-
-
-
-
   React.useEffect(() => {
     if (!stripe) {
       return;
@@ -169,13 +114,7 @@ async function submitdata(enteredData) {
         return_url: "https://www.keruproject.org/digital_souvenir/success",
         receipt_email: email,
       },
-    }).then(function(result) {
-      if(result.paymentIntent){
- 
-    }
-   else { submitdata({email: paymentIntent.receipt_email,location:paymentIntent.metadata.location,image_url:paymentIntent.metadata.image_url,edition:paymentIntent.metadata.edition}) //send to mongodb
-    sendConfirmationEmail({email:paymentIntent.receipt_email,souvenir_name:paymentIntent.description,edition:paymentIntent.metadata.edition}) //send a receipt email
-     }   });
+    });
 
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
