@@ -12,7 +12,7 @@ export default function PHgetsouvenir() {
   const [email, setEmail] = useState('');
   const [isClicked, setIsClicked] = useState(false);
 
-  const location = "Anniversaire Paul Henri"
+  const location = "Anniversaire Paul-Henri"
   const image_url = "https://keruprojectwebsite.s3.eu-west-3.amazonaws.com/PH_70.txt"
   const edition = "70 ans"
 
